@@ -1,0 +1,20 @@
+﻿
+// User created successfully
+{
+  "college": [
+    "graphic era university"
+  ],
+  "date_of_birth": "1999-09-19",
+  "gender": "male",
+  "gmail": "adarsh.kunwar@gmail.com",
+  "profile_pic": "string",
+  "resume": "Adarsh's Resume",
+  "skill": [
+    "martial artist",
+    "handsome",
+    "coder"
+  ],
+  "user_id": "string",
+  "user_name": "Adarsh Kunwar"
+}
+
