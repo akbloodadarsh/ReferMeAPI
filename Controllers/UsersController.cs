@@ -54,5 +54,14 @@ namespace ReferMeAPI.Controllers
             await _cosmosDbService.DeleteUserAsync(user_id);
             return Ok("User Deleted Successfully");
         }
+
+        [HttpPost("authenticate-user")]
+        public async Task<IActionResult> AuthenticateUser([FromBody]User user)
+        {
+            var token = await _cosmosDbService.AuthenticateUserAsync(user.user_name, user.password);
+            if (string.IsNullOrEmpty(token))
+                return Unauthorized();
+            return Ok(token);
+        }
     }
 }

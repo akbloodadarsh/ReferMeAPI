@@ -13,11 +13,14 @@ namespace ReferMeAPI.Model
         [JsonProperty(PropertyName = "id")]
         public string user_id { get; set; }
         public string user_name { get; set; }
+        public string first_name { get; set; }
+        public string middle_name { get; set; }
+        public string last_name { get; set; }
+        public string password{ get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public string date_of_birth{ get; set; }
-        public List<string> college { get; set; }
         public string gender { get; set; }
         public List<string> skill { get; set; }
         public string profile_pic { get; set; }

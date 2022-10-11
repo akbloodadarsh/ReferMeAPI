@@ -14,7 +14,10 @@ namespace ReferMeAPI.Model
         public string post_id { get; set; }
         public string user_id { get; set; }
         public string post_description { get; set; }
-        public DateTime delete_on{ get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public string delete_on{ get; set; }
         public string for_company { get; set; }
         public string position { get; set; }
         public int experience_required { get; set; }

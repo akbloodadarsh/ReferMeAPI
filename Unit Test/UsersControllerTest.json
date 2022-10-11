@@ -1,20 +1,21 @@
 ﻿
 // User created successfully
 {
-  "college": [
-    "graphic era university"
-  ],
+  "id": "2523670a-5909-4918-9244-c838fd9e0363",
+  "user_name": "adarshkunwar",
+  "first_name": "Adarsh",
+  "middle_name": "",
+  "last_name": "Kunwar",
+  "password": "blablabla",
   "date_of_birth": "1999-09-19",
   "gender": "male",
-  "gmail": "adarsh.kunwar@gmail.com",
-  "profile_pic": "string",
-  "resume": "Adarsh's Resume",
   "skill": [
     "martial artist",
     "handsome",
     "coder"
   ],
-  "user_id": "string",
-  "user_name": "Adarsh Kunwar"
+  "profile_pic": "string",
+  "gmail": "adarsh.kunwar@gmail.com",
+  "resume": "Adarsh's Resume"
 }
 

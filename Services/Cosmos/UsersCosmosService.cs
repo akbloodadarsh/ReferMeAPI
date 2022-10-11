@@ -15,6 +15,7 @@ namespace ReferMeAPI
         Task AddUserAsync(User item);
         Task UpdateUserAsync(string id, User item);
         Task DeleteUserAsync(string id);
+        Task<string> AuthenticateUserAsync(string user_name, string password);
     }
 
     public class UsersCosmosDbService : IUsersCosmosDbService
@@ -69,6 +70,25 @@ namespace ReferMeAPI
         public async Task UpdateUserAsync(string id, User item)
         {
             await _container.UpsertItemAsync(item, new PartitionKey(id));
+        }
+
+        public async Task<string> AuthenticateUserAsync(string user_name, string password)
+        {
+            var query = _container.GetItemQueryIterator<User>(new QueryDefinition($"SELECT * FROM Users AS u WHERE u.user_name='{user_name}'"));
+
+            var results = new List<User>();
+            while (query.HasMoreResults)
+            {
+                var response = await query.ReadNextAsync();
+                results.AddRange(response.ToList());
+            }
+            if (results.Count() == 0)
+                return "status:- failed, message:- user not exist";
+
+            if (results[0].password == password)
+                return "status:- success";
+
+            return "status:- failed, message:- password incorrect";
         }
     }
 }

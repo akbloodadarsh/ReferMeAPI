@@ -14,8 +14,14 @@ namespace ReferMeAPI.Model
         public string college_id { get; set; }
         public string user_id { get; set; }
         public string course_attended { get; set; }
-        public DateTime attended_from { get;  set; }
-        public DateTime attended_till { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public string attended_from { get;  set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public string attended_till { get; set; }
         public bool ongoing { get; set; }
     }
 }
