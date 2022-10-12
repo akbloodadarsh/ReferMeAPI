@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using ReferMeAPI.Repositories;
 using ReferMeAPI.Services.JWTAuthentication;
 using System;
 using System.Collections.Generic;
@@ -128,6 +129,8 @@ namespace ReferMeAPI
                 .Json.ReferenceLoopHandling.Ignore)
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
                 = new DefaultContractResolver());
+            services.AddScoped<IUserRepository, UsersRepository>();
+            services.AddScoped<IJwtTokenManager, JwtTokenManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -141,8 +144,8 @@ namespace ReferMeAPI
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

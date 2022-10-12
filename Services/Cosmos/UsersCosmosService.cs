@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Cosmos;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.Azure.Cosmos;
 using ReferMeAPI.Model;
 using System;
 using System.Collections.Generic;
