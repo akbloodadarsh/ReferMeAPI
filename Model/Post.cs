@@ -13,15 +13,16 @@ namespace ReferMeAPI.Model
         [JsonProperty(PropertyName = "id")]
         public string post_id { get; set; }
         public string user_id { get; set; }
+        public string role { get; set; }
         public string post_description { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public string delete_on{ get; set; }
         public string for_company { get; set; }
         public string position { get; set; }
         public int experience_required { get; set; }
         public string job_location_country { get; set; }
         public string job_location_city { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public string delete_on { get; set; }
     }
 }

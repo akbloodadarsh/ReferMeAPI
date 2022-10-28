@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReferMeAPI.Model;
+using ReferMeAPI.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,46 +13,43 @@ namespace ReferMeAPI.Controllers
     [ApiController]
     public class CollegesController : Controller
     {
-        private readonly ICollegesCosmosDbService _cosmosDbService;
-        private IEnumerable<College> colleges;
+        private ICollegeRepository _collegeRepository;
 
-        public CollegesController(ICollegesCosmosDbService cosmosDbService)
+        public CollegesController(ICollegeRepository collegeRepository)
         {
-            _cosmosDbService = cosmosDbService;
+            _collegeRepository = collegeRepository;
         }
 
         [HttpPost("create-college")]
         public async Task<ActionResult> CreateCollege(College college)
         {
-            college.college_id = Guid.NewGuid().ToString();
-            await _cosmosDbService.AddCollegeAsync(college);
+            await _collegeRepository.CreateCollege(college);
             return Ok("College Created");
         }
 
         [HttpGet("get-colleges")]
-        public async Task<ActionResult<IEnumerable<College>>> GetColleges()
+        public async Task<IEnumerable<College>> GetColleges()
         {
-            colleges = await _cosmosDbService.GetColleges();
-            return colleges.ToList();
+            return await _collegeRepository.GetColleges();
         }
 
         [HttpGet("get-college/{id}")]
-        public async Task<ActionResult<College>> GetCollege(string college_id)
+        public async Task<College> GetCollege(string college_id)
         {
-            return await _cosmosDbService.GetCollegeAsync(college_id);
+            return await _collegeRepository.GetCollege(college_id);
         }
 
         [HttpPost("update-college/{id}")]
-        public async Task<ActionResult<College>> GetCollege(string college_id, College college)
+        public async Task<ActionResult> UpdateCollege(string college_id, College college)
         {
-            await _cosmosDbService.UpdateCollegeAsync(college_id, college);
+            await _collegeRepository.UpdateCollege(college_id, college);
             return Ok("College Updated Successfully");
         }
 
         [HttpPost("delete-college/{id}")]
-        public async Task<ActionResult<College>> DeleteCollege(string college_id)
+        public async Task<ActionResult> DeleteCollege(string college_id)
         {
-            await _cosmosDbService.DeleteCollegeAsync(college_id);
+            await _collegeRepository.DeleteCollege(college_id);
             return Ok("College Deleted Successfully");
         }
     }

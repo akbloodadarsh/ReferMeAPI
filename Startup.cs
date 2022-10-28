@@ -130,6 +130,9 @@ namespace ReferMeAPI
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
                 = new DefaultContractResolver());
             services.AddScoped<IUserRepository, UsersRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<ICompaniesRepository, CompaniesRepository>();
+            services.AddScoped<ICollegeRepository, CollegeRepository>();
             services.AddScoped<IJwtTokenManager, JwtTokenManager>();
         }
 

@@ -10,7 +10,6 @@ namespace ReferMeAPI.Repositories
 {
     public class UsersRepository : IUserRepository
     {
-
         private readonly IUsersCosmosDbService _usersCosmosDbService;
         private IEnumerable<User> users;
         private IJwtTokenManager _jwtTokenManager;

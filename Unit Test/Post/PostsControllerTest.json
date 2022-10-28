@@ -1,0 +1,52 @@
+﻿
+// Post created successfully
+[
+  {
+    "post_id": "string",
+    "user_id": "string",
+    "role": "Full-Time",
+    "post_description": "It's not possible for me to give referral to everyone but I will definitely give to all those whom I find suitable for the role. And will guide them over a call or text if needed. Make sure your",
+    "for_company": "Adobe",
+    "position": "SDE-3",
+    "experience_required": 3,
+    "job_location_country": "India",
+    "job_location_city": "Bengaluru",
+    "delete_on": "2022-10-28"
+  },
+  {
+    "post_id": "string",
+    "user_id": "string",
+    "role": "Part-Time",
+    "post_description": "It's not possible for me to give referral to everyone but I will definitely give to all those whom I find suitable for the role. And will guide them over a call or text if needed. Make sure your",
+    "for_company": "Adobe",
+    "position": "SDE-1",
+    "experience_required": 1,
+    "job_location_country": "India",
+    "job_location_city": "Delhi",
+    "delete_on": "2022-10-28"
+  },
+  {
+    "post_id": "string",
+    "user_id": "string",
+    "role": "Intern",
+    "post_description": "It's not possible for me to give referral to everyone but I will definitely give to all those whom I find suitable for the role. And will guide them over a call or text if needed. Make sure your",
+    "for_company": "Amazon",
+    "position": "SDE-2",
+    "experience_required": 2,
+    "job_location_country": "United States",
+    "job_location_city": "New York",
+    "delete_on": "2022-10-28"
+  },
+  {
+    "post_id": "string",
+    "user_id": "string",
+    "role": "Intern",
+    "post_description": "It's not possible for me to give referral to everyone but I will definitely give to all those whom I find suitable for the role. And will guide them over a call or text if needed. Make sure your",
+    "for_company": "Google",
+    "position": "SDE-2",
+    "experience_required": 2,
+    "job_location_country": "India",
+    "job_location_city": "Bengaluru",
+    "delete_on": "2022-10-28"
+  }
+]

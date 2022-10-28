@@ -12,6 +12,7 @@ namespace ReferMeAPI
     {
         Task<IEnumerable<Post>> GetPosts();
         Task<Post> GetPostAsync(string post_id);
+        Task<IEnumerable<Post>> GetFilteredPosts(string experience, string company, string position, string job_location_country, string job_location_city, string role);
         Task AddPostAsync(Post post);
         Task UpdatePostAsync(string post_id, Post post);
         Task DeletePostAsync(string post_id);
@@ -56,6 +57,101 @@ namespace ReferMeAPI
         {
             var query = _container.GetItemQueryIterator<Post>(new QueryDefinition("SELECT * FROM Posts"));
 
+            var results = new List<Post>();
+            while (query.HasMoreResults)
+            {
+                var response = await query.ReadNextAsync();
+                results.AddRange(response.ToList());
+            }
+
+            return results;
+        }
+
+        public async Task<IEnumerable<Post>> GetFilteredPosts(string experience_required, string for_company, string position, string job_location_country, string job_location_city, string role)
+        {
+            experience_required = experience_required == "" ? null : experience_required;
+            for_company = for_company == "" ? null : for_company;
+            position = position == "" ? null : position;
+            job_location_country = job_location_country == "" ? null : job_location_country;
+            job_location_city = job_location_city == "" ? null : job_location_city;
+            role = role == "" ? null : role;
+
+            string q = "SELECT * FROM Posts";
+
+            if (experience_required!= null || for_company != null || position != null || job_location_country != null || job_location_city!=null || role!=null)
+            {
+                q += " AS u";
+                if (experience_required != null)
+                {
+                    q += $" WHERE u.experience_required<={experience_required}";
+                    experience_required = null;
+                }
+                else if (for_company != null)
+                {
+                    q += $" WHERE u.for_company='{for_company}'";
+                    for_company = null;
+                }
+                else if (position != null)
+                {
+                    q += $" WHERE u.position='{position}'";
+                    position = null;
+                }
+                else if (job_location_country != null)
+                {
+                    q += $" WHERE u.job_location_country='{job_location_country}'";
+                    job_location_country = null;
+                }
+                else if (job_location_city != null)
+                {
+                    q += $" WHERE u.job_location_city='{job_location_city}'";
+                    job_location_city = null;
+                }
+                else if (role != null)
+                {
+                    q += $" WHERE u.role='{role}'";
+                    role = null;
+                }
+            }
+
+            while (experience_required != null || for_company != null || position != null || job_location_country != null || job_location_city != null || role!=null)
+            {
+                if (experience_required != null)
+                {
+                    q += $" AND u.experience_required<={experience_required}";
+                    experience_required = null;
+                }
+                else if (for_company != null)
+                {
+                    q += $" AND u.for_company='{for_company}'";
+                    for_company = null;
+                }
+                else if (position != null)
+                {
+                    q += $" AND u.position='{position}'";
+                    position = null;
+                }
+                else if (job_location_country != null)
+                {
+                    q += $" AND u.job_location_country='{job_location_country}'";
+                    job_location_country = null;
+                }
+                else if (job_location_city != null)
+                {
+                    q += $" AND u.job_location_city='{job_location_city}'";
+                    job_location_city = null;
+                }
+                else if (role != null)
+                {
+                    q += $" AND u.role='{role}'";
+                    role = null;
+                }
+            }
+
+            if(q[q.Length-1]==' ')
+                q = q.Remove(q.Length - 1);
+            
+            var query = _container.GetItemQueryIterator<Post>(new QueryDefinition(q));
+            
             var results = new List<Post>();
             while (query.HasMoreResults)
             {
