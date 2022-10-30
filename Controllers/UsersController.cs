@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ReferMeAPI.Model;
 using ReferMeAPI.Repositories;
 using System;
@@ -66,10 +67,10 @@ namespace ReferMeAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate-user")]
-        public async Task<IActionResult> AuthenticateUser([FromBody]User user)
+        public async Task<string> AuthenticateUser([FromBody]User user)
         {
             var token = await _userRepository.AuthenticateUser(user.user_name, user.password);
-            return Ok(token);
+            return JsonConvert.SerializeObject(new { token });
         }
     }
 }
