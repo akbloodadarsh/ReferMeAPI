@@ -26,13 +26,13 @@ namespace ReferMeAPI.Controllers
             _usersCosmosDbService = usersCosmosDbService;
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("create-user")]
-        public async Task<ActionResult> CreateUser(User user)
+        public async Task<string> CreateUser(User user)
         {
             user.user_id = Guid.NewGuid().ToString();
             await _userRepository.CreateUser(user);
-            return Ok("User Created");
+            return JsonConvert.SerializeObject(new { data = "User Created"});
         }
 
         [Authorize]
