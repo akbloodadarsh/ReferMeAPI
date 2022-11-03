@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Azure.Cosmos;
+using Newtonsoft.Json;
 using ReferMeAPI.Model;
 using System;
 using System.Collections.Generic;
@@ -83,13 +84,16 @@ namespace ReferMeAPI
                 var response = await query.ReadNextAsync();
                 results.AddRange(response.ToList());
             }
+
+            string user_id_status = "";
             if (results.Count() == 0)
-                return "status:- failed, message:- user not exist";
+                user_id_status = "user not exist";
+            else if (results[0].password == password)
+                user_id_status = results[0].user_id;
+            else
+                user_id_status = "password incorrect";
 
-            if (results[0].password == password)
-                return "status:- success";
-
-            return "status:- failed, message:- password incorrect";
+            return user_id_status;
         }
     }
 }

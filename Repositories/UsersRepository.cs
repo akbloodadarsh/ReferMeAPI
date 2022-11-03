@@ -51,10 +51,10 @@ namespace ReferMeAPI.Repositories
         
         public async Task<string> AuthenticateUser(string user_name, string password)
         {
-            var token = await _jwtTokenManager.Authenticate(user_name, password);
-            if (string.IsNullOrEmpty(token))
+            var token_user_id = await _jwtTokenManager.Authenticate(user_name, password);
+            if (string.IsNullOrEmpty(token_user_id))
                 return "unauthorized";
-            return token;
+            return token_user_id;
         }
 
     }

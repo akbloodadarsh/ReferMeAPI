@@ -65,12 +65,24 @@ namespace ReferMeAPI.Controllers
             return Ok("User Deleted Successfully");
         }
 
+        class Token_UserId
+        {
+            [JsonProperty("token")]
+            public String token { get; set; }
+
+            [JsonProperty("user_id")]
+            public string user_id { get; set; }
+        }
+
         [AllowAnonymous]
         [HttpPost("authenticate-user")]
         public async Task<string> AuthenticateUser([FromBody]User user)
         {
-            var token = await _userRepository.AuthenticateUser(user.user_name, user.password);
-            return JsonConvert.SerializeObject(new { token });
+            string response = await _userRepository.AuthenticateUser(user.user_name, user.password);
+            
+            Token_UserId token_UserId = JsonConvert.DeserializeObject<Token_UserId>(response);
+
+            return JsonConvert.SerializeObject(new { token_UserId.token, token_UserId.user_id});
         }
     }
 }

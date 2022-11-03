@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -28,8 +29,10 @@ namespace ReferMeAPI.Services.JWTAuthentication
         {
             string response = await _cosmosDbService.AuthenticateUserAsync(user_name, password);
 
-            if (response == "status:- failed, message:- user not exist" || response == "status:- failed, message:- password incorrect")
+            if (response == "user not exist" || response == "password incorrect")
                 return null;
+
+            string user_id = response;
 
             var key = _configuration.GetValue<string>("JwtConfig:Key");
             var keyBytes = Encoding.ASCII.GetBytes(key);
@@ -48,9 +51,10 @@ namespace ReferMeAPI.Services.JWTAuthentication
                 )
             };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var create_token = tokenHandler.CreateToken(tokenDescriptor);
+            string token = tokenHandler.WriteToken(create_token);
 
-            return tokenHandler.WriteToken(token);
+            return JsonConvert.SerializeObject(new { token, user_id });
         }
     }
 }
